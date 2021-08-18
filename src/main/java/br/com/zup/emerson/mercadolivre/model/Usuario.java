@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Usuario {
@@ -23,7 +24,7 @@ public class Usuario {
     @Size(min = 6)
     private String senha;
     @CreationTimestamp
-    private LocalDate horaCadastro;
+    private LocalDateTime horaCadastro;
 
     @Deprecated
     public Usuario() {
