@@ -1,6 +1,7 @@
 package br.com.zup.emerson.mercadolivre.controller.dto.request;
 
 import br.com.zup.emerson.mercadolivre.model.Usuario;
+import br.com.zup.emerson.mercadolivre.validation.UniqueValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -10,12 +11,9 @@ import javax.validation.constraints.Size;
 
 public class UsuarioRequest {
 
-
-
-
-
     @NotBlank
     @Email
+    @UniqueValue(domainClass = Usuario.class, fildName = "login")
     private String login;
     @NotBlank
     @Size(min = 6)
