@@ -15,7 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_POST = {
-            "/usuarios"
+            "/usuarios",
+            "/categorias"
     };
 
     //Configuracoes de autorizacao
