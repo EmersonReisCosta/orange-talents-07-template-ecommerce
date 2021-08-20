@@ -19,4 +19,8 @@ public class CategoriaRequest {
     public Categoria getCategoria() {
         return categoria;
     }
+    // Categoria request deve receber o nome e a chave estrangeira de categoria.
+    public Categoria toModel(){
+        return new Categoria(this.nomeCategoria, this.categoria);
+    }
 }
