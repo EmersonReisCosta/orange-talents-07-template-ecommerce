@@ -52,6 +52,10 @@ public class Usuario implements UserDetails {
         return senha;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
