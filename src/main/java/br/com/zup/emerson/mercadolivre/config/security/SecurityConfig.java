@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AutenticacaoService autenticacaoService;
 
+
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/usuarios",
             "/categorias",
@@ -33,10 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    //Configurações de autenticação
+    //Configuracoes de autenticacao
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService);
+        auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     //Configuracoes de autorizacao
