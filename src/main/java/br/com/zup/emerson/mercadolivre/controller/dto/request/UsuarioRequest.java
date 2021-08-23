@@ -2,8 +2,6 @@ package br.com.zup.emerson.mercadolivre.controller.dto.request;
 
 import br.com.zup.emerson.mercadolivre.model.Usuario;
 import br.com.zup.emerson.mercadolivre.validation.UniqueValue;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -32,17 +30,22 @@ public class UsuarioRequest {
         return login;
     }
 
-    public String getSenha() {
-
-        return senha;
-    }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public Usuario toModel(){
+    public Usuario toModel() {
 
         return new Usuario(this.login, this.senha);
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+
+        return senha;
     }
 }
