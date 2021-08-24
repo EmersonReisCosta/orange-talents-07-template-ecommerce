@@ -31,4 +31,13 @@ public class TokenService {
                 .signWith(SignatureAlgorithm.HS256, secret) //Diz qual é o algoritimo de criptografia e a senha da aplicação para gerar o hash do token
                 .compact();
     }
+
+    public boolean isTokenValido(String token) {
+        try {
+            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
