@@ -1,6 +1,7 @@
 package br.com.zup.emerson.mercadolivre.config.security;
 
 import br.com.zup.emerson.mercadolivre.model.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ public class TokenService {
         Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
         return Jwts.builder()
                 .setIssuer("API Merscado Livre") //Quem é que está gerando esse token
-                .setSubject(logado.getLogin()) //Quem é o usuario autenticado que esse token pertence
+                .setSubject(String.valueOf(logado.getId())) //Quem é o usuario autenticado que esse token pertence
                 .setIssuedAt(hoje) //Data de geração do token
                 .setExpiration(dataExpiracao) //Tempo de expiração
                 .signWith(SignatureAlgorithm.HS256, secret) //Diz qual é o algoritimo de criptografia e a senha da aplicação para gerar o hash do token
@@ -39,5 +40,10 @@ public class TokenService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Long getIdUsuario(String token) {
+        Claims body = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
+        return Long.parseLong(body.getSubject());
     }
 }

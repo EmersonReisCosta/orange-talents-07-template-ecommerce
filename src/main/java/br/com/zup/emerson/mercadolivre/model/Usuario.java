@@ -56,6 +56,10 @@ public class Usuario implements UserDetails {
         return id;
     }
 
+    public List<Perfil> getPerfis() {
+        return perfis;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
