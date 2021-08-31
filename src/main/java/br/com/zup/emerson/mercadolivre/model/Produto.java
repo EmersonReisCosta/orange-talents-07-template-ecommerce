@@ -1,5 +1,6 @@
 package br.com.zup.emerson.mercadolivre.model;
 
+import br.com.zup.emerson.mercadolivre.controller.dto.request.CaracteristicaRequest;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,6 +32,7 @@ public class Produto {
     @Size(min = 3)
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -40,19 +43,54 @@ public class Produto {
     @CreationTimestamp
     private LocalDateTime instanteCadastro;
 
-    @NotNull
     @ManyToOne
     private Usuario usuarioLogado;
 
+    @Deprecated
+    public Produto() {
+    }
 
-    public Produto(String nome, BigDecimal valor, int quantidadeDisponivel, Set<CaracteristicaProduto> caracteristicas, String descricao, Categoria categoria, LocalDateTime instanteCadastro, Usuario usuarioLogado) {
+    public Produto(String nome, BigDecimal valor, int quantidadeDisponivel, String descricao, Categoria categoria, Usuario usuarioLogado, Set<CaracteristicaRequest> caracteristicas) {
         this.nome = nome;
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
-        this.caracteristicas = caracteristicas;
         this.descricao = descricao;
         this.categoria = categoria;
-        this.instanteCadastro = instanteCadastro;
         this.usuarioLogado = usuarioLogado;
+
+        caracteristicas.forEach(cr -> this.caracteristicas.add(cr.toModel(this)));
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public Set<CaracteristicaProduto> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
     }
 }

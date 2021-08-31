@@ -46,6 +46,8 @@ public class LoginRequest {
     public UsernamePasswordAuthenticationToken toModel() {
         return new UsernamePasswordAuthenticationToken(login, senha);
     }
+
+
 }
 
 
