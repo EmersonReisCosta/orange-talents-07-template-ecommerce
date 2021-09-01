@@ -17,6 +17,9 @@ public class CaracteristicaRequest {
         this.nome = nome;
         this.descricao = descricao;
     }
+    @Deprecated
+    public CaracteristicaRequest() {
+    }
 
     public CaracteristicaProduto toModel(@NotNull Produto produto){
         return new CaracteristicaProduto(nome,descricao,produto);

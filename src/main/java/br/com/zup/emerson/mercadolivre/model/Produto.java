@@ -1,6 +1,7 @@
 package br.com.zup.emerson.mercadolivre.model;
 
 import br.com.zup.emerson.mercadolivre.controller.dto.request.CaracteristicaRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,8 +12,9 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -29,6 +31,7 @@ public class Produto {
     @NotNull
     @Positive
     private int quantidadeDisponivel;
+    @JsonIgnore
     @Size(min = 3)
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
@@ -46,6 +49,9 @@ public class Produto {
     @ManyToOne
     private Usuario usuarioLogado;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<ImagensProduto> imagens = new HashSet<>();
+
     @Deprecated
     public Produto() {
     }
@@ -60,6 +66,10 @@ public class Produto {
 
         caracteristicas.forEach(cr -> this.caracteristicas.add(cr.toModel(this)));
 
+    }
+
+    public Produto(Set<ImagensProduto> imagens) {
+        this.imagens = imagens;
     }
 
     public Long getId() {
@@ -92,5 +102,34 @@ public class Produto {
 
     public Usuario getUsuarioLogado() {
         return usuarioLogado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(nome, produto.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome);
+    }
+
+    public void associaImagens(Set<String> links) {
+        Set<ImagensProduto> imagens = links.stream()
+                .map(link -> new ImagensProduto(this, link))
+                .collect(Collectors.toSet());
+
+        this.imagens.addAll(imagens);
+    }
+
+    public Set<ImagensProduto> getImagens() {
+        return imagens;
+    }
+
+    public boolean pertenceAoUsuario(Usuario usuarioLogado, Usuario possivelDono) {
+        return usuarioLogado.equals(possivelDono);
     }
 }

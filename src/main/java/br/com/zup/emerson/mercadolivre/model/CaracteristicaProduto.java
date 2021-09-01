@@ -28,6 +28,11 @@ public class CaracteristicaProduto {
         this.descricao = descricao;
         this.produto = produto;
     }
+    @Deprecated
+    public CaracteristicaProduto() {
+    }
+
+
 
     public String getNome() {
         return nome;
