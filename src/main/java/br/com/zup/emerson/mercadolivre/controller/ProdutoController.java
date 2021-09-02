@@ -82,6 +82,6 @@ public class ProdutoController {
 
         produto.associaImagens(links);
         produtoRepository.save(produto);
-        return ResponseEntity.ok(produto);
+        return ResponseEntity.ok().build();
     }
 }
