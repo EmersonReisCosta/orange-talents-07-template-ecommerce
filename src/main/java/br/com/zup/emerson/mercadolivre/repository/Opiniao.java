@@ -3,10 +3,7 @@ package br.com.zup.emerson.mercadolivre.repository;
 import br.com.zup.emerson.mercadolivre.model.Produto;
 import br.com.zup.emerson.mercadolivre.model.Usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,8 +23,10 @@ public class Opiniao {
     @Size(max = 500)
     private String descricao;
     @NotNull
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Usuario usuarioLogado;
     @NotNull
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Produto produto;
 
     @Deprecated

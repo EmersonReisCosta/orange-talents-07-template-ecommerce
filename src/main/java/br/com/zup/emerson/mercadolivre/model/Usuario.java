@@ -1,16 +1,14 @@
 package br.com.zup.emerson.mercadolivre.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.zup.emerson.mercadolivre.repository.Opiniao;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +33,8 @@ public class Usuario implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuarioLogado")
+    private Collection<Opiniao> opinioes = new HashSet<>();
     @Deprecated
     public Usuario() {
     }
@@ -58,6 +58,10 @@ public class Usuario implements UserDetails {
 
     public List<Perfil> getPerfis() {
         return perfis;
+    }
+
+    public Collection<Opiniao> getOpinioes() {
+        return opinioes;
     }
 
     public void setSenha(String senha) {
