@@ -1,19 +1,18 @@
 package br.com.zup.emerson.mercadolivre.controller.dto.request;
 
 import br.com.zup.emerson.mercadolivre.model.Produto;
-import br.com.zup.emerson.mercadolivre.repository.Opiniao;
+import br.com.zup.emerson.mercadolivre.model.Opiniao;
 import br.com.zup.emerson.mercadolivre.repository.ProdutoRepository;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Optional;
 
 public class OpiniaoRequest {
 
 
     @NotNull
-    @Size(min = 1, max = 5)
+    @Max(5)
+    @Min(1)
     private int nota;
     @NotBlank
     private String titulo;

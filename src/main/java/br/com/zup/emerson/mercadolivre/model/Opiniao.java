@@ -1,12 +1,8 @@
-package br.com.zup.emerson.mercadolivre.repository;
-
-import br.com.zup.emerson.mercadolivre.model.Produto;
-import br.com.zup.emerson.mercadolivre.model.Usuario;
+package br.com.zup.emerson.mercadolivre.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 
 @Entity
 public class Opiniao {
@@ -15,7 +11,8 @@ public class Opiniao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min = 1, max = 5)
+    @Max(5)
+    @Min(1)
     private int nota;
     @NotBlank
     private String titulo;
@@ -23,10 +20,10 @@ public class Opiniao {
     @Size(max = 500)
     private String descricao;
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Usuario usuarioLogado;
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Produto produto;
 
     @Deprecated
@@ -40,5 +37,27 @@ public class Opiniao {
         this.produto = produto;
     }
 
+    public int getNota() {
+        return nota;
+    }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
 }
