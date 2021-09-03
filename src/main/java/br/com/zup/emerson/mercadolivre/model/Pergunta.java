@@ -25,12 +25,10 @@ public class Pergunta {
     @ManyToOne
     private Produto produto;
 
-    public Pergunta(String titulo, Usuario usuarioLogado, Produto produto) {
+    public Pergunta(String titulo) {
         this.titulo = titulo;
-        this.usuarioLogado = usuarioLogado;
-        this.produto = produto;
     }
-
+    @Deprecated
     public Pergunta() {
     }
 
@@ -47,5 +45,15 @@ public class Pergunta {
         return Objects.hash(titulo, usuarioLogado, produto);
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 }
