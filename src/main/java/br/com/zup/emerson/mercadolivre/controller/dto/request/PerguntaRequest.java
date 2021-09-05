@@ -1,4 +1,4 @@
-package br.com.zup.emerson.mercadolivre.controller.dto;
+package br.com.zup.emerson.mercadolivre.controller.dto.request;
 
 import br.com.zup.emerson.mercadolivre.model.Pergunta;
 
