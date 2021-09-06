@@ -19,4 +19,8 @@ public class PerguntaRequest {
     public Pergunta toModel(){
         return new Pergunta(titulo);
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
 }

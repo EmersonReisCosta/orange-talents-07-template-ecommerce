@@ -33,7 +33,7 @@ public class Usuario implements UserDetails {
     private List<Perfil> perfis = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuarioLogado")
-    private Collection<Opiniao> opinioes = new HashSet<>();
+    private Set<Opiniao> opinioes = new HashSet<>();
     @Deprecated
     public Usuario() {
     }
@@ -41,6 +41,10 @@ public class Usuario implements UserDetails {
     public Usuario(String login, String senha) {
         this.login = login;
         this.senha = senha;
+    }
+
+    public Set<Opiniao> getOpinioes() {
+        return opinioes;
     }
 
     public String getLogin() {
@@ -59,9 +63,7 @@ public class Usuario implements UserDetails {
         return perfis;
     }
 
-    public Collection<Opiniao> getOpinioes() {
-        return opinioes;
-    }
+
 
     public void setSenha(String senha) {
         this.senha = senha;

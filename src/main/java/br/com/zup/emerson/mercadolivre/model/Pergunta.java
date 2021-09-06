@@ -56,4 +56,20 @@ public class Pergunta {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public LocalDateTime getInstanteCriacao() {
+        return instanteCriacao;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
 }
